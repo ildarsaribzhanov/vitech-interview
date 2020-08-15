@@ -27,11 +27,11 @@ API должно содержать несколько методов:
 2) Вы делаете Rest API на php и весь фронт делаете на reactJs или vue (с webpack!), для фуллстак разработчиков.
 
 Можно сделать каркас на этих компонентах (для примера, можно и другие):
-# symfony/http-kernel
-# symfony/http-foundation
-# symfony/routing
-# symfony/dependency-injection
-# doctrine/orm
-# guzzlehttp/guzzle
+- symfony/http-kernel
+- symfony/http-foundation
+- symfony/routing
+- symfony/dependency-injection
+- doctrine/orm
+- guzzlehttp/guzzle
 
 
