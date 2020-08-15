@@ -11,6 +11,7 @@ use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addGroup('/api', function (RouteCollector $r) {
         $r->addRoute('GET', '', 'HomeController@info');
+        $r->addRoute('POST', '/order', 'OrderController@create');
     });
 });
 
