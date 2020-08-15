@@ -13,8 +13,24 @@ use App\Entities\Product;
  */
 class Order
 {
+    private ?int $id;
+
     /** @var OrderItm[] */
     private array $basket = [];
+
+
+    public function __construct(?int $id = null)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
      * @param Product $product
