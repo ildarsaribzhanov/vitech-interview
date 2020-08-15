@@ -1,0 +1,16 @@
+{
+  "name": "saribzhanov_ildar/vitech-interview",
+  "description": "Vi.Tech Test",
+  "authors": [
+    {
+      "name": "Ildar Saribzhanov",
+      "email": "ildar@saribzhanov.ru"
+    }
+  ],
+  "config": {
+    "sort-packages": true
+  },
+  "require": {
+    "php": ">=7.4.0"
+  }
+}
