@@ -3,6 +3,7 @@
 namespace App\Entities\Order;
 
 
+use App\Entities\Price;
 use App\Entities\Product;
 
 /**
@@ -31,11 +32,13 @@ class OrderItm
     }
 
     /**
-     * @return float|int
+     * @return Price
      */
-    public function getCost(): float
+    public function getCost(): Price
     {
-        return $this->product->getPrice() * $this->amount;
+        $itmPrice = $this->product->getPrice();
+
+        return Price::create($itmPrice->getVal() * $this->amount);
     }
 
     /**

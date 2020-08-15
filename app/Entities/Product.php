@@ -45,9 +45,9 @@ class Product
         return $this->name;
     }
 
-    /** @return float */
-    public function getPrice(): float
+    /** @return Price */
+    public function getPrice(): Price
     {
-        return $this->price->getVal();
+        return $this->price;
     }
 }

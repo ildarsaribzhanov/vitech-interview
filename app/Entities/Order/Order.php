@@ -3,6 +3,7 @@
 namespace App\Entities\Order;
 
 
+use App\Entities\Price;
 use App\Entities\Product;
 
 /**
@@ -31,14 +32,14 @@ class Order
     }
 
     /**
-     * @return float|int
+     * @return Price
      */
-    public function getTotalCost(): float
+    public function getTotalCost(): Price
     {
-        $totalCost = 0;
+        $totalCost = Price::create(0);
 
         foreach ($this->basket as $orderItm) {
-            $totalCost += $orderItm->getCost();
+            $totalCost = $totalCost->add($orderItm->getCost());
         }
 
         return $totalCost;

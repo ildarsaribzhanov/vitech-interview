@@ -18,6 +18,9 @@ class PriceTest extends TestCase
      */
     public function testCreate()
     {
+        $price = Price::create(0);
+        $this->assertEquals(0, $price->getVal());
+
         $price = Price::create(0.01);
         $this->assertEquals(0.01, $price->getVal());
 
@@ -32,15 +35,6 @@ class PriceTest extends TestCase
     {
         $this->expectException(DomainException::class);
         Price::create(-1);
-    }
-
-    /**
-     * Text check exception
-     */
-    public function testCreatedExceptionSmallest()
-    {
-        $this->expectException(DomainException::class);
-        Price::create(0.001);
     }
 
     /**

@@ -25,8 +25,8 @@ class Price
      */
     private function __construct(int $price)
     {
-        if ($price < 1) {
-            throw new DomainException('Price must be more then 0.01');
+        if ($price < 0) {
+            throw new DomainException('Price must be more then 0');
         }
 
         $this->price = $price;

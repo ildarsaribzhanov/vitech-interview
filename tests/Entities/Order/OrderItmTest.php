@@ -21,10 +21,10 @@ class OrderItmTest extends TestCase
     {
         $product  = new Product(1, 'Продукт', Price::create(100));
         $orderItm = new OrderItm($product, 1);
-        $this->assertEquals(100, $orderItm->getCost());
+        $this->assertEquals(Price::create(100), $orderItm->getCost());
 
         $orderItm = new OrderItm($product, 5);
-        $this->assertEquals(500, $orderItm->getCost());
+        $this->assertEquals(Price::create(500), $orderItm->getCost());
     }
 
     /**
@@ -36,6 +36,6 @@ class OrderItmTest extends TestCase
         $orderItm = new OrderItm($product, 1);
 
         $orderItm->add(5);
-        $this->assertEquals(100 * 6, $orderItm->getCost());
+        $this->assertEquals(Price::create(100 * 6), $orderItm->getCost());
     }
 }
