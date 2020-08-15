@@ -1,6 +1,7 @@
 <?php
 
 
+use DI\Container;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use Laminas\Diactoros\ServerRequestFactory;
@@ -43,7 +44,9 @@ switch ($routeInfo[0]) {
         $class = "App\\Controllers\\" . $class;
 
         array_unshift($vars, $request);
-        $response = call_user_func_array([new  $class, $method], $vars);
+        $container  = new Container();
+        $controller = $container->get($class);
+        $response   = $controller->$method(...$vars);
         break;
 
     default:
