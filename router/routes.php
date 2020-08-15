@@ -4,6 +4,7 @@
 use DI\Container;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
+use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 
@@ -29,7 +30,7 @@ $request = ServerRequestFactory::fromGlobals();
 
 switch ($routeInfo[0]) {
     case Dispatcher::NOT_FOUND:
-        echo "404 Not Found";
+        $response = new JsonResponse(['message' => "Not found"], 404);
         break;
 
     case Dispatcher::METHOD_NOT_ALLOWED:
@@ -50,7 +51,7 @@ switch ($routeInfo[0]) {
         break;
 
     default:
-        echo "404 Not Found";
+        $response = new JsonResponse(['message' => "Not found"], 404);
 }
 
 if ($response) {
