@@ -1,22 +1,45 @@
 <?php
 
-namespace App\Entities\Order;
+namespace App\Entities;
 
 
-use App\Entities\Price;
-use App\Entities\Product;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class OrderItm
  *
  * @package App\Entities\Order
+ *
+ * @ORM\Entity()
+ * @ORM\Table(name="order_products")
  */
 class OrderItm
 {
-    /** @var Product */
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     */
+    private int $order_id;
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     */
+    private int $product_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Order", inversedBy="basket")
+     */
+    private Order $order;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="orderItmList")
+     */
     private Product $product;
 
-    /** @var int */
+    /**
+     * @ORM\Column(type="integer")
+     */
     private int $amount;
 
     /**

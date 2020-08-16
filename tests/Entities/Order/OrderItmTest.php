@@ -2,7 +2,7 @@
 
 namespace Tests\Entities\Order;
 
-use App\Entities\Order\OrderItm;
+use App\Entities\OrderItm;
 use App\Entities\Price;
 use App\Entities\Product;
 use PHPUnit\Framework\TestCase;

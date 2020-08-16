@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 
+use App\Entities\OrderItm;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +33,12 @@ class Product
      * @ORM\Column(type="price_type")
      */
     private Price $price;
+
+    /**
+     * @ORM\OneToMany(targetEntity="OrderItm", mappedBy="product")
+     * @var OrderItm[]
+     */
+    private array $orderItmList;
 
     /**
      * @ORM\Column(type="datetime")

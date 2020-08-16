@@ -4,7 +4,7 @@ namespace App\Services;
 
 
 use App\Dto\OrderItmDto;
-use App\Entities\Order\Order;
+use App\Entities\Order;
 use App\Repositories\ProductRepository;
 use DomainException;
 

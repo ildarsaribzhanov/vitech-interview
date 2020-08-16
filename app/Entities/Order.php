@@ -1,23 +1,60 @@
 <?php
 
-namespace App\Entities\Order;
+namespace App\Entities;
 
 
-use App\Entities\Price;
-use App\Entities\Product;
+use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Order
  *
  * @package App\Entities
+ *
+ * @ORM\Entity()
+ * @ORM\Table(name="orders")
  */
 class Order
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
     private ?int $id;
 
-    /** @var OrderItm[] */
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $total_cost;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var DateTime
+     */
+    private DateTime $created_at;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var DateTime
+     */
+    private $updated_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity="OrderItm", mappedBy="order")
+     * @var OrderItm[] An ArrayCollection of Bug objects.
+     */
     private array $basket = [];
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
+     */
+    private User $user;
 
     public function __construct(?int $id = null)
     {
@@ -59,5 +96,13 @@ class Order
         }
 
         return $totalCost;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
     }
 }
