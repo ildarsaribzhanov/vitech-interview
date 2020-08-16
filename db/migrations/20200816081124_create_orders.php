@@ -19,7 +19,7 @@ final class CreateOrders extends AbstractMigration
             ->addColumn('updated_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->create();
 
-        $tableOrderItms = $this->table('order_products');
+        $tableOrderItms = $this->table('order_products', ['id' => false, 'primary_key' => ['order_id', 'product_id']]);
         $tableOrderItms->addColumn('order_id', 'biginteger')
             ->addColumn('product_id', 'biginteger')
             ->addColumn('amount', 'integer')
