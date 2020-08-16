@@ -29,18 +29,18 @@ class Order
     private $total_cost;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", options={"default":"NEW"})
      */
-    private $status;
+    private $status = "NEW";
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
      * @var DateTime
      */
     private DateTime $created_at;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
      * @var DateTime
      */
     private $updated_at;

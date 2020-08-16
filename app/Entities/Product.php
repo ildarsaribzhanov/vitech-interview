@@ -41,13 +41,13 @@ class Product
     private array $orderItmList;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
      * @var DateTime
      */
     private DateTime $created_at;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
      * @var DateTime
      */
     private $updated_at;
