@@ -20,7 +20,6 @@ class ProductSeeder extends AbstractSeed
     public function run()
     {
         $productsTable = $this->table('products');
-        $productsTable->truncate();
 
         $faker = Factory::create();
         $data  = [];
