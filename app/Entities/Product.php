@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package App\Entities
  *
- * @ORM\Entity(repositoryClass="ProductRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="products")
  */
 class Product
@@ -20,7 +21,7 @@ class Product
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    private int $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string")
@@ -33,17 +34,37 @@ class Product
     private Price $price;
 
     /**
+     * @ORM\Column(type="datetime")
+     * @var DateTime
+     */
+    private DateTime $created_at;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var DateTime
+     */
+    private $updated_at;
+
+    /**
      * Product constructor.
      *
-     * @param int    $id
-     * @param string $name
-     * @param Price  $price
+     * @param string   $name
+     * @param Price    $price
+     * @param int|null $id
      */
-    public function __construct(int $id, string $name, Price $price)
+    public function __construct(string $name, Price $price, ?int $id = null)
     {
-        $this->id    = $id;
         $this->name  = $name;
         $this->price = $price;
+        $this->id    = $id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     /** @return int */
@@ -62,5 +83,30 @@ class Product
     public function getPrice(): Price
     {
         return $this->price;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updated_at;
+    }
+
+    public function toArray()
+    {
+        return [
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'price' => $this->price->getVal(),
+        ];
     }
 }

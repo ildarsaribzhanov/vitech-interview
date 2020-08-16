@@ -62,7 +62,10 @@ class Price
         return new Price($this->price + $priceVal);
     }
 
-    public function getValue(): string
+    /**
+     * @return string
+     */
+    public function getRawValue(): string
     {
         return $this->price;
     }

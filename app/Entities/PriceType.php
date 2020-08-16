@@ -17,7 +17,7 @@ class PriceType extends IntegerType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return $value instanceof Price ? $value->getValue() : $value;
+        return $value instanceof Price ? $value->getRawValue() : $value;
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)

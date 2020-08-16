@@ -2,6 +2,7 @@
 
 
 use DI\Container;
+use Doctrine\ORM\EntityManagerInterface;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use Laminas\Diactoros\Response\JsonResponse;
@@ -31,6 +32,9 @@ $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
 $request = ServerRequestFactory::fromGlobals();
 
+$container = new Container();
+$container->set(EntityManagerInterface::class, $entityManager);
+
 switch ($routeInfo[0]) {
     case Dispatcher::NOT_FOUND:
         $response = new JsonResponse(['message' => "Not found"], 404);
@@ -38,7 +42,7 @@ switch ($routeInfo[0]) {
 
     case Dispatcher::METHOD_NOT_ALLOWED:
         $allowedMethods = $routeInfo[1];
-        echo "405 Method Not Allowed";
+        $response       = new JsonResponse(['message' => "Method Not Allowed"], 405);
         break;
 
     case Dispatcher::FOUND:
@@ -48,9 +52,13 @@ switch ($routeInfo[0]) {
         $class = "App\\Controllers\\" . $class;
 
         array_unshift($vars, $request);
-        $container  = new Container();
         $controller = $container->get($class);
-        $response   = $controller->$method(...$vars);
+        try {
+            $response = $controller->$method(...array_values($vars));
+        } catch (Throwable $e) {
+            $response = new JsonResponse(['message' => $e->getMessage()], 400);
+        }
+
         break;
 
     default:

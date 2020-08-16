@@ -37,6 +37,8 @@ class ProductController
 
     public function getOne(ServerRequest $request, int $id)
     {
-        return $this->productService->findById($id);
+        $product = $this->productService->findById($id);
+
+        return new JsonResponse(["status" => "success", 'product' => $product->toArray()]);
     }
 }
