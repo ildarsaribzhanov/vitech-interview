@@ -23,7 +23,7 @@ class Price
      *
      * @param int $price
      */
-    private function __construct(int $price)
+    public function __construct(int $price)
     {
         if ($price < 0) {
             throw new DomainException('Price must be more then 0');
@@ -60,5 +60,10 @@ class Price
         $priceVal = $price->getVal() * (10 ** self::AFTER_COMMA);
 
         return new Price($this->price + $priceVal);
+    }
+
+    public function getValue(): string
+    {
+        return $this->price;
     }
 }
