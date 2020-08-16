@@ -12,6 +12,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addGroup('/api', function (RouteCollector $r) {
         $r->addRoute('GET', '', 'HomeController@info');
         $r->addRoute('POST', '/order', 'OrderController@create');
+        $r->addRoute('POST', '/fill-products', 'ProductController@fill');
     });
 });
 
