@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Services\ProductService;
 use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\ServerRequest;
 
 /**
  * Class ProductController
@@ -32,5 +33,10 @@ class ProductController
         $this->productService->fillFake();
 
         return new JsonResponse(["status" => "success"]);
+    }
+
+    public function getOne(ServerRequest $request, int $id)
+    {
+        return $this->productService->findById($id);
     }
 }

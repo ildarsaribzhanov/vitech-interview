@@ -3,20 +3,33 @@
 namespace App\Entities;
 
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Product
  *
  * @package App\Entities
+ *
+ * @ORM\Entity(repositoryClass="ProductRepository")
+ * @ORM\Table(name="products")
  */
 class Product
 {
-    /** @var int */
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
     private int $id;
 
-    /** @var string */
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $name;
 
-    /** @var Price */
+    /**
+     * @ORM\Column(type="price_type")
+     */
     private Price $price;
 
     /**

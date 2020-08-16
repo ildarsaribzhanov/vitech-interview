@@ -5,13 +5,14 @@ namespace App\Repositories;
 
 use App\Entities\Price;
 use App\Entities\Product;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Class ProductRepository
  *
  * @package App\Repositories
  */
-class ProductRepository
+class ProductRepository extends EntityRepository
 {
     /**
      * @param array $idList
