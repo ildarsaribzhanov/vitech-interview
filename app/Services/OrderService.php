@@ -85,7 +85,7 @@ class OrderService
         $order->setTotalCost($totalPrice);
         $order->setUser($user);
 
-        $order = $this->orderRepository->create($order);
+        $order = $this->orderRepository->save($order);
         $this->orderItmRepository->createListForOrder($orderItmList, $order);
 
         return $order;

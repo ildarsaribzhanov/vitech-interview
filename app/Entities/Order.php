@@ -27,7 +27,7 @@ class Order
     /**
      * @ORM\Column(type="price_type")
      */
-    private Price $total_cost;
+    private Price $totalCost;
 
     /**
      * @ORM\Column(type="string", options={"default":"NEW"})
@@ -62,6 +62,11 @@ class Order
      */
     private User $user;
 
+    /**
+     * Order constructor.
+     *
+     * @param int|null $id
+     */
     public function __construct(?int $id = null)
     {
         $this->id         = $id;
@@ -78,11 +83,11 @@ class Order
     }
 
     /**
-     * @param Price $total_cost
+     * @param Price $totalCost
      */
-    public function setTotalCost(Price $total_cost): void
+    public function setTotalCost(Price $totalCost): void
     {
-        $this->total_cost = $total_cost;
+        $this->totalCost = $totalCost;
     }
 
     /**
@@ -105,13 +110,7 @@ class Order
      */
     public function getTotalCost(): Price
     {
-        $totalCost = Price::create(0);
-
-        foreach ($this->basket as $orderItm) {
-            $totalCost = $totalCost->add($orderItm->getCost());
-        }
-
-        return $totalCost;
+        return $this->totalCost;
     }
 
     /**
@@ -120,5 +119,21 @@ class Order
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPaid(): bool
+    {
+        return $this->status == 'PAID';
+    }
+
+    /**
+     * Change status to Paid
+     */
+    public function setPaid(): void
+    {
+        $this->status = 'PAID';
     }
 }
