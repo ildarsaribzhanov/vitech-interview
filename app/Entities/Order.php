@@ -4,6 +4,7 @@ namespace App\Entities;
 
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,8 +47,13 @@ class Order
     private $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="OrderItm", mappedBy="order")
-     * @var OrderItm[]
+     * @ORM\OneToMany(targetEntity="OrderItm",
+     *     mappedBy="order",
+     *     cascade={ "persist", "remove" },
+     *     orphanRemoval=TRUE,
+     *     fetch="EXTRA_LAZY"
+     * )
+     * @var OrderItm[]|ArrayCollection
      */
     private $basket = [];
 

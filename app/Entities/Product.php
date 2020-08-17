@@ -5,6 +5,7 @@ namespace App\Entities;
 
 use App\Entities\OrderItm;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,8 +36,13 @@ class Product
     private Price $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="OrderItm", mappedBy="product")
-     * @var OrderItm[]
+     * @ORM\OneToMany(targetEntity="OrderItm",
+     *     mappedBy="product",
+     *     cascade={ "persist", "remove" },
+     *     orphanRemoval=TRUE,
+     *     fetch="EXTRA_LAZY"
+     * )
+     * @var OrderItm[]|ArrayCollection
      */
     private $orderItmList;
 

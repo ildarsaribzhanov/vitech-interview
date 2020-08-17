@@ -16,24 +16,16 @@ use Doctrine\ORM\Mapping as ORM;
 class OrderItm
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     */
-    private int $order_id;
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     */
-    private int $product_id;
-
-    /**
+     * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="Order", inversedBy="basket")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id", nullable=false)
      */
     private Order $order;
 
     /**
+     * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="orderItmList")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
     private Product $product;
 
@@ -78,5 +70,13 @@ class OrderItm
     public function add(int $amount): void
     {
         $this->amount += $amount;
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function setOrder(Order $order): void
+    {
+        $this->order = $order;
     }
 }
