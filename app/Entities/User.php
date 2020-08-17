@@ -2,7 +2,6 @@
 
 namespace App\Entities;
 
-use App\Repositories\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package App\Entities
  *
- * @ORM\Entity(repositoryClass="UserRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="users")
  */
 class User
