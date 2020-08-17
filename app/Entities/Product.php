@@ -38,7 +38,7 @@ class Product
      * @ORM\OneToMany(targetEntity="OrderItm", mappedBy="product")
      * @var OrderItm[]
      */
-    private array $orderItmList;
+    private $orderItmList;
 
     /**
      * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
