@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Repositories\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package App\Entities
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="UserRepository")
  * @ORM\Table(name="users")
  */
 class User
@@ -28,7 +29,7 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity="Order", mappedBy="user")
-     * @var OrderItm[] An ArrayCollection of Bug objects.
+     * @var Order[]
      */
     private $orders;
 

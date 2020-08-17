@@ -24,9 +24,9 @@ class Order
     private ?int $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="price_type")
      */
-    private $total_cost;
+    private Price $total_cost;
 
     /**
      * @ORM\Column(type="string", options={"default":"NEW"})
@@ -47,9 +47,9 @@ class Order
 
     /**
      * @ORM\OneToMany(targetEntity="OrderItm", mappedBy="order")
-     * @var OrderItm[] An ArrayCollection of Bug objects.
+     * @var OrderItm[]
      */
-    private array $basket = [];
+    private $basket = [];
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
@@ -58,7 +58,9 @@ class Order
 
     public function __construct(?int $id = null)
     {
-        $this->id = $id;
+        $this->id         = $id;
+        $this->created_at = new DateTime();
+        $this->updated_at = new DateTime();
     }
 
     /**
@@ -67,6 +69,14 @@ class Order
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @param Price $total_cost
+     */
+    public function setTotalCost(Price $total_cost): void
+    {
+        $this->total_cost = $total_cost;
     }
 
     /**
