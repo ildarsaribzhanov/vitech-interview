@@ -55,6 +55,14 @@ class OrderItm
     }
 
     /**
+     * @return Product
+     */
+    public function getProduct(): Product
+    {
+        return $this->product;
+    }
+
+    /**
      * @return Price
      */
     public function getCost(): Price
