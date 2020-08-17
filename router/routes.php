@@ -15,6 +15,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
         $r->addRoute('POST', '/order', 'OrderController@create');
         $r->addRoute('POST', '/fill-products', 'ProductController@fill');
         $r->addRoute('GET', '/product/{id:[0-9]+}', 'ProductController@getOne');
+        $r->addRoute('PUT', '/pay/{order_id:[0-9]+}', 'PaymentsController@pay');
     });
 });
 
