@@ -4,18 +4,17 @@ namespace App\Repositories;
 
 
 use App\Entities\Order;
+use App\Entities\OrderItm;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * Class OrderRepository
+ * Class OrderItmRepository
  *
  * @package App\Repositories
  */
-class OrderRepository
+class OrderItmRepository
 {
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
+    /** @var EntityManagerInterface */
     private EntityManagerInterface $em;
 
     /**
@@ -29,15 +28,16 @@ class OrderRepository
     }
 
     /**
-     * @param Order $order
-     *
-     * @return \App\Entities\Order
+     * @param OrderItm[] $list
+     * @param Order      $order
      */
-    public function create(Order $order): Order
+    public function createListForOrder(array $list, Order $order): void
     {
-        $this->em->persist($order);
-        $this->em->flush();
+        foreach ($list as $orderItm) {
+            $orderItm->setOrder($order);
+            $this->em->persist($orderItm);
+        }
 
-        return $order;
+        $this->em->flush();
     }
 }
