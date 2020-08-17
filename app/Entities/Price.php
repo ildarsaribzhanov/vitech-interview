@@ -69,4 +69,14 @@ class Price
     {
         return $this->price;
     }
+
+    /**
+     * @param Price $price
+     *
+     * @return bool
+     */
+    public function equal(Price $price): bool
+    {
+        return $this->getRawValue() == $price->getRawValue();
+    }
 }
