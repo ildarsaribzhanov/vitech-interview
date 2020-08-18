@@ -3,8 +3,10 @@
 namespace App\Repositories;
 
 
-use App\Entities\Price;
 use App\Entities\Product;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectRepository;
+use DomainException;
 
 /**
  * Class ProductRepository
@@ -13,6 +15,24 @@ use App\Entities\Product;
  */
 class ProductRepository
 {
+    /** @var ObjectRepository */
+    private ObjectRepository $emRepository;
+
+    /** @var EntityManagerInterface */
+    private EntityManagerInterface $em;
+
+    /**
+     * ProductRepository constructor.
+     *
+     * @param \Doctrine\ORM\EntityManagerInterface $em
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+
+        $this->emRepository = $em->getRepository(Product::class);
+    }
+
     /**
      * @param array $idList
      *
@@ -20,12 +40,32 @@ class ProductRepository
      */
     public function getFromIdList(array $idList): array
     {
-        $productList = [];
+        $query       = $this->em->createQuery("SELECT p FROM " . Product::class . " p WHERE p.id IN (" . implode(', ', $idList) . ")");
+        $productList = $query->getResult();
 
-        foreach ($idList as $id) {
-            $productList[$id] = new Product($id, 'Name', Price::create(100));
+        $listRes = [];
+
+        /** @var Product $productEntity */
+        foreach ($productList as $productEntity) {
+            $listRes[$productEntity->getId()] = $productEntity;
         }
 
-        return $productList;
+        return $listRes;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Product|object|null
+     */
+    public function find(int $id): ?Product
+    {
+        $product = $this->emRepository->find($id);
+
+        if ($product === null) {
+            throw new DomainException('Not found product by id ' . $id);
+        }
+
+        return $product;
     }
 }

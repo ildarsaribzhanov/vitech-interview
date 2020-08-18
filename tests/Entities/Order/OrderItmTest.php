@@ -2,7 +2,7 @@
 
 namespace Tests\Entities\Order;
 
-use App\Entities\Order\OrderItm;
+use App\Entities\OrderItm;
 use App\Entities\Price;
 use App\Entities\Product;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +19,7 @@ class OrderItmTest extends TestCase
      */
     public function testCreate()
     {
-        $product  = new Product(1, 'Продукт', Price::create(100));
+        $product  = new Product('Продукт', Price::create(100), 1);
         $orderItm = new OrderItm($product, 1);
         $this->assertEquals(Price::create(100), $orderItm->getCost());
 
@@ -32,7 +32,7 @@ class OrderItmTest extends TestCase
      */
     public function testAdd()
     {
-        $product  = new Product(1, 'Продукт', Price::create(100));
+        $product  = new Product( 'Продукт', Price::create(100),1);
         $orderItm = new OrderItm($product, 1);
 
         $orderItm->add(5);

@@ -23,7 +23,7 @@ class Price
      *
      * @param int $price
      */
-    private function __construct(int $price)
+    public function __construct(int $price)
     {
         if ($price < 0) {
             throw new DomainException('Price must be more then 0');
@@ -60,5 +60,23 @@ class Price
         $priceVal = $price->getVal() * (10 ** self::AFTER_COMMA);
 
         return new Price($this->price + $priceVal);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRawValue(): string
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param Price $price
+     *
+     * @return bool
+     */
+    public function equal(Price $price): bool
+    {
+        return $this->getRawValue() == $price->getRawValue();
     }
 }

@@ -46,4 +46,19 @@ class PriceTest extends TestCase
         $this->assertEquals(Price::create(3), $price);
         $this->assertEquals(Price::create(7), $price->add(Price::create(4)));
     }
+
+    /**
+     *
+     */
+    public function testEqual()
+    {
+        $price = Price::create(3);
+
+        $this->assertTrue($price->equal(Price::create(3)));
+        $this->assertTrue($price->equal(new Price(300)));
+
+        $this->assertFalse($price->equal(new Price(3)));
+        $this->assertFalse($price->equal(Price::create(300)));
+        $this->assertFalse($price->equal(new Price(5)));
+    }
 }

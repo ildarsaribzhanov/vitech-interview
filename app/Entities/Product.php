@@ -3,34 +3,81 @@
 namespace App\Entities;
 
 
+use App\Entities\OrderItm;
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Product
  *
  * @package App\Entities
+ *
+ * @ORM\Entity()
+ * @ORM\Table(name="products")
  */
 class Product
 {
-    /** @var int */
-    private int $id;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    private ?int $id;
 
-    /** @var string */
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $name;
 
-    /** @var Price */
+    /**
+     * @ORM\Column(type="price_type")
+     */
     private Price $price;
+
+    /**
+     * @ORM\OneToMany(targetEntity="OrderItm",
+     *     mappedBy="product",
+     *     cascade={ "persist", "remove" },
+     *     orphanRemoval=TRUE,
+     *     fetch="EXTRA_LAZY"
+     * )
+     * @var OrderItm[]|ArrayCollection
+     */
+    private $orderItmList;
+
+    /**
+     * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
+     * @var DateTime
+     */
+    private DateTime $created_at;
+
+    /**
+     * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
+     * @var DateTime
+     */
+    private $updated_at;
 
     /**
      * Product constructor.
      *
-     * @param int    $id
-     * @param string $name
-     * @param Price  $price
+     * @param string   $name
+     * @param Price    $price
+     * @param int|null $id
      */
-    public function __construct(int $id, string $name, Price $price)
+    public function __construct(string $name, Price $price, ?int $id = null)
     {
-        $this->id    = $id;
         $this->name  = $name;
         $this->price = $price;
+        $this->id    = $id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     /** @return int */
@@ -49,5 +96,30 @@ class Product
     public function getPrice(): Price
     {
         return $this->price;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updated_at;
+    }
+
+    public function toArray()
+    {
+        return [
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'price' => $this->price->getVal(),
+        ];
     }
 }

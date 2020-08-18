@@ -2,19 +2,35 @@
 
 namespace App\Entities;
 
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class User
  *
  * @package App\Entities
+ *
+ * @ORM\Entity()
+ * @ORM\Table(name="users")
  */
 class User
 {
-    /** @var int */
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
     private int $id;
 
-    /** @var string */
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $login;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="user")
+     * @var Order[]
+     */
+    private $orders;
 
     public function __construct(int $id, string $login)
     {
