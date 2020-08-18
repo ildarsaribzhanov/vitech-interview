@@ -36,7 +36,7 @@ class ProductService
 
         $app->setAutoExit(false);
 
-        return $app->run(new StringInput('seed:run'), new NullOutput());
+        return $app->run(new StringInput('seed:run -s ProductSeeder'), new NullOutput());
     }
 
     /**
