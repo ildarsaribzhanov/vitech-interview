@@ -7,8 +7,6 @@ define('APP', dirname(__DIR__));
 chdir(APP);
 require 'vendor/autoload.php';
 
-require_once "bootstrap.php";
-
 $dotenv = Dotenv::createImmutable(APP);
 $dotenv->load();
 

@@ -33,7 +33,9 @@ $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
 $request = ServerRequestFactory::fromGlobals();
 
-$container = new Container();
+$container     = new Container();
+$entityManager = require_once APP . '/bootstrap.php';
+
 $container->set(EntityManagerInterface::class, $entityManager);
 
 switch ($routeInfo[0]) {

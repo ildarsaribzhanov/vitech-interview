@@ -27,4 +27,4 @@ $dbParams = [
 
 Type::addType(PriceType::NAME, PriceType::class);
 
-$entityManager = EntityManager::create($dbParams, $config);
+return EntityManager::create($dbParams, $config);
