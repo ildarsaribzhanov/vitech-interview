@@ -25,7 +25,9 @@ class Order
     private ?int $id;
 
     /**
-     * @ORM\Column(type="price_type")
+     * @ORM\Column(
+     *     name="total_cost",
+     *     type="price_type")
      */
     private Price $totalCost;
 
