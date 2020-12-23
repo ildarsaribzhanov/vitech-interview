@@ -9,8 +9,15 @@ final class CreateUsersTable extends AbstractMigration
     {
         // create the table
         $table = $this->table('users');
-        $table->addColumn('name', 'string')
+        $table->addColumn('login', 'string')
             ->create();
+
+        $this->table('users')
+            ->changeColumn('id', 'biginteger', ['identity' => true])->save();
+
+        $tableOrders = $this->table('orders');
+        $tableOrders->addForeignKey('user_id', 'users', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
+            ->save();
     }
 
     /**

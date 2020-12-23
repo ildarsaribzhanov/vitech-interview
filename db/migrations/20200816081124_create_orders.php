@@ -19,11 +19,19 @@ final class CreateOrders extends AbstractMigration
             ->addColumn('updated_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->create();
 
+        $this->table('orders')
+            ->changeColumn('id', 'biginteger', ['identity' => true])->save();
+
         $tableOrderItms = $this->table('order_products', ['id' => false, 'primary_key' => ['order_id', 'product_id']]);
         $tableOrderItms->addColumn('order_id', 'biginteger')
-            ->addColumn('product_id', 'biginteger')
+            ->addColumn('product_id', 'biginteger', ['null' => true])
             ->addColumn('amount', 'integer')
+            ->addForeignKey('order_id', 'orders', 'id', ['delete' => 'CASCADE','update' => 'NO_ACTION', 'constraint' => 'amount_by_order'])
+            ->addForeignKey('product_id', 'products', 'id', ['delete'=> 'RESTRICT', 'update'=> 'RESTRICT', 'constraint' => 'amount_by_product'])
             ->create();
+
+        $this->table('order_products')
+            ->save();
     }
 
     /**

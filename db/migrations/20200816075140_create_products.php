@@ -20,6 +20,9 @@ final class CreateProducts extends AbstractMigration
             ->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('updated_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->create();
+
+        $this->table('products')
+            ->changeColumn('id', 'biginteger', ['identity' => true])->save();
     }
 
     /**
