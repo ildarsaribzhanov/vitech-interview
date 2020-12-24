@@ -25,7 +25,7 @@ class PaymentFormType extends AbstractType
         $builder
             ->add('cost', IntegerType::class, [
                 'required'    => true,
-                'constraints'     => [
+                'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 0])
                 ],

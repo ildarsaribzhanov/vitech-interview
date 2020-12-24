@@ -3,7 +3,8 @@
 namespace App\Controllers;
 
 
-use App\Dto\OrderItmDto;
+use App\Forms\Dto\CreateOrderFormDto;
+use App\Forms\Type\CreateOrderFormType;
 use App\Services\OrderService;
 use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\ServerRequest;
@@ -15,6 +16,8 @@ use Laminas\Diactoros\ServerRequest;
  */
 class OrderController
 {
+    use FormBuilderTrait;
+
     /** @var OrderService */
     private OrderService $orderService;
 
@@ -32,18 +35,14 @@ class OrderController
      * @param ServerRequest $request
      *
      * @return JsonResponse
+     * @throws \Exception
      */
-    public function create(ServerRequest $request)
+    public function create(ServerRequest $request): JsonResponse
     {
-        $data = json_decode($request->getBody()->getContents());
+        /** @var CreateOrderFormDto $formDto */
+        $formDto = $this->buildForm($request, CreateOrderFormType::class);
 
-        $list = [];
-
-        foreach ($data as $dataItm) {
-            $list[] = new OrderItmDto($dataItm->id, $dataItm->count);
-        }
-
-        $order = $this->orderService->makeOrder($list);
+        $order = $this->orderService->makeOrder($formDto->products);
 
         return new JsonResponse(['order' => $order->getId()]);
     }
