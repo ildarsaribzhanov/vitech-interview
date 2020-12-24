@@ -16,7 +16,7 @@ final class CreateUsersTable extends AbstractMigration
             ->changeColumn('id', 'biginteger', ['identity' => true])->save();
 
         $tableOrders = $this->table('orders');
-        $tableOrders->addForeignKey('user_id', 'users', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
+        $tableOrders->addForeignKey('user_id', 'users', 'id', ['delete' => 'RESTRICT', 'update' => 'NO_ACTION'])
             ->save();
     }
 
