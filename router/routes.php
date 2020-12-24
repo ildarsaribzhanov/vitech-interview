@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Exceptions\ApiException;
 use DI\Container;
 use Doctrine\ORM\EntityManagerInterface;
 use FastRoute\Dispatcher;
@@ -58,6 +59,9 @@ switch ($routeInfo[0]) {
         $controller = $container->get($class);
         try {
             $response = $controller->$method(...array_values($vars));
+        } catch (ApiException $e) {
+            $response = new JsonResponse(['message' => $e->getMessage(), 'additional' => $e->getAdditional()], 400);
+
         } catch (Throwable $e) {
             $response = new JsonResponse(['message' => $e->getMessage()], 400);
         }
