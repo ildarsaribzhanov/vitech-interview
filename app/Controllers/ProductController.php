@@ -35,6 +35,12 @@ class ProductController
         return new JsonResponse(["status" => "success"]);
     }
 
+    /**
+     * @param \Laminas\Diactoros\ServerRequest $request
+     * @param int                              $id
+     *
+     * @return \Laminas\Diactoros\Response\JsonResponse
+     */
     public function getOne(ServerRequest $request, int $id)
     {
         $product = $this->productService->findById($id);

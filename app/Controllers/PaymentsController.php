@@ -26,6 +26,9 @@ class PaymentsController
     /**
      * @param ServerRequest $request
      * @param int           $order_id
+     *
+     * @return \Laminas\Diactoros\Response\JsonResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function pay(ServerRequest $request, int $order_id)
     {
